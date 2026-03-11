@@ -9,14 +9,16 @@ import Table from "../components/table";
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import { ButtonContained } from "../components/buttonContained";
 import { SimpleBackdrop } from "../components/backdrop";
+import { useSnackbar } from "../contexts/SnackbarContext";
 
 export function Alunos() {
+  const { showSuccess, showError } = useSnackbar();
   const [dashboardData, setDashboardData] = useState(null);
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const loadData = () => {
     Promise.all([
       dashboardService.getDashboardData(),
       studentService.getAll()
@@ -24,32 +26,36 @@ export function Alunos() {
       .then(([dashData, studentsData]) => {
         setDashboardData(dashData);
         setStudents(studentsData);
+        setError(null);
       })
       .catch((err) => {
         setError("Erro ao carregar dados");
         console.error(err);
       })
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    loadData();
   }, []);
+
+  const handleEditStudent = async (id, editedData) => {
+    try {
+      setLoading(true);
+      await studentService.update(id, editedData);
+      showSuccess('Estudante atualizado com sucesso!');
+      loadData();
+    } catch (err) {
+      setLoading(false);
+      showError('Erro ao atualizar estudante. Tente novamente.');
+      console.error('Error updating student:', err);
+    }
+  };
 
   const formattedStudents = students.map((student) => ({
     ...student,
-    attendance_percentage: (
-      <span style={{ color: student.attendance_percentage < 75 ? 'red' : 'inherit' }}>
-        {student.attendance_percentage}%
-      </span>
-    ),
   }));
 
-  if (loading) {
-    return (
-      <div>
-        <Navbar />
-        <SidebarMenu />
-        <SimpleBackdrop />
-      </div>
-    );
-  }
 
   if (error) {
     return (
@@ -64,17 +70,28 @@ export function Alunos() {
 const columnsStudents = [
     { key: 'id', label: 'ID'},
     { key: 'name', label: 'Nome do Aluno'},
-    { key: 'subject1_grade', label: 'Matéria 1'},
-    { key: 'subject2_grade', label: 'Matéria 2'},
-    { key: 'subject3_grade', label: 'Matéria 3'},
-    { key: 'subject4_grade', label: 'Matéria 4'},
-    { key: 'subject5_grade', label: 'Matéria 5'},
+    { key: 'subject1_grade', label: 'Português'},
+    { key: 'subject2_grade', label: 'Matemática'},
+    { key: 'subject3_grade', label: 'História'},
+    { key: 'subject4_grade', label: 'Geografia'},
+    { key: 'subject5_grade', label: 'Ciências'},
     { key: 'average_grade', label: 'Média Geral'},
     { key: 'attendance_percentage', label: 'Frequência %' }
 ];
 
+const editableFields = [
+  'subject1_grade',
+  'subject2_grade', 
+  'subject3_grade',
+  'subject4_grade',
+  'subject5_grade',
+  'attendance_percentage'
+];
+
 return (
   <div>
+    { loading && <SimpleBackdrop /> }
+    
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <Navbar />
       <Box sx={{ display: 'flex', flex: 1, backgroundColor: '#f6f7f8' }}>
@@ -105,7 +122,14 @@ return (
                 Listagem de Estudantes
               </Typography>
             </Box>
-            <Table columns={columnsStudents} rows={formattedStudents || []} emptyMessage="Nenhum estudante cadastrado"/>
+            <Table 
+              columns={columnsStudents} 
+              rows={formattedStudents || []} 
+              emptyMessage="Nenhum estudante cadastrado"
+              onEdit={handleEditStudent}
+              editableFields={editableFields}
+            />
+            
           </Box>
 
         </Box>

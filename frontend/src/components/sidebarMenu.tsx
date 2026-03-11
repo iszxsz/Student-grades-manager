@@ -3,9 +3,17 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { ListItemIcon, ListItemText, MenuItem, MenuList , Typography, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const SidebarMenu = () => {
+  const location = useLocation();
+  
+  const menuItems = [
+    { path: '/', label: 'Dashboard', icon: DashboardIcon },
+    { path: '/alunos', label: 'Alunos', icon: GroupsIcon },
+    { path: '/novoAluno', label: 'Adicionar Novo Aluno', icon: PersonSearchIcon }
+  ];
+
   return (
     <Box sx={{ 
       width: 250, 
@@ -25,63 +33,41 @@ export const SidebarMenu = () => {
           </Typography>
         </Box>
         <MenuList sx={{ padding: '0 0.5rem' }}>   
-        <MenuItem component={Link} to="/" sx={{
-          borderRadius: '0.5rem',
-          marginBottom: '0.5rem',
-          '&:hover': {
-            backgroundColor: '#f1f5f9',
-          },
-        }}>
-            <ListItemIcon>
-            <DashboardIcon sx={{ color: '#1a355b', fontSize: '1.5rem' }} />
-            </ListItemIcon>
-            <ListItemText 
-              primary="Dashboard" 
-              primaryTypographyProps={{
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                color: '#475569',
+        {menuItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = location.pathname === item.path;
+          
+          return (
+            <MenuItem 
+              key={item.path}
+              component={Link} 
+              to={item.path} 
+              sx={{
+                borderRadius: '0.5rem',
+                marginBottom: '0.5rem',
+                backgroundColor: isActive ? '#e0f2fe' : 'transparent',
+                '&:hover': {
+                  backgroundColor: isActive ? '#bae6fd' : '#f1f5f9',
+                },
               }}
-            />
-        </MenuItem>
-        <MenuItem component={Link} to="/alunos" sx={{
-          borderRadius: '0.5rem',
-          marginBottom: '0.5rem',
-          '&:hover': {
-            backgroundColor: '#f1f5f9',
-          },
-        }}>
-            <ListItemIcon>
-            <GroupsIcon sx={{ color: '#1a355b', fontSize: '1.5rem' }} />
-            </ListItemIcon>
-            <ListItemText 
-              primary="Alunos" 
-              primaryTypographyProps={{
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                color: '#475569',
-              }}
-            />
-        </MenuItem>
-        <MenuItem component={Link} to="/novoAluno" sx={{
-          borderRadius: '0.5rem',
-          marginBottom: '0.5rem',
-          '&:hover': {
-            backgroundColor: '#f1f5f9',
-          },
-        }}>
-            <ListItemIcon>
-            <PersonSearchIcon sx={{ color: '#1a355b', fontSize: '1.5rem' }} />
-            </ListItemIcon>
-            <ListItemText 
-              primary="Adicionar Novo Aluno" 
-              primaryTypographyProps={{
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                color: '#475569',
-              }}
-            />
-        </MenuItem>
+            >
+              <ListItemIcon>
+                <Icon sx={{ 
+                  color: isActive ? '#0369a1' : '#1a355b', 
+                  fontSize: '1.5rem' 
+                }} />
+              </ListItemIcon>
+              <ListItemText 
+                primary={item.label} 
+                primaryTypographyProps={{
+                  fontSize: '0.875rem',
+                  fontWeight: isActive ? 600 : 500,
+                  color: isActive ? '#0369a1' : '#475569',
+                }}
+              />
+            </MenuItem>
+          );
+        })}
         </MenuList>
     </Box>
   );

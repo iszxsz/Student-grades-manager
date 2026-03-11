@@ -26,11 +26,11 @@ class StudentController extends Controller{
     public function store(Request $request){
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'subject1_grade' => 'required|numeric|min:0|max:100',
-            'subject2_grade' => 'required|numeric|min:0|max:100',
-            'subject3_grade' => 'required|numeric|min:0|max:100',
-            'subject4_grade' => 'required|numeric|min:0|max:100',
-            'subject5_grade' => 'required|numeric|min:0|max:100',
+            'subject1_grade' => 'required|numeric|min:0|max:10',
+            'subject2_grade' => 'required|numeric|min:0|max:10',
+            'subject3_grade' => 'required|numeric|min:0|max:10',
+            'subject4_grade' => 'required|numeric|min:0|max:10',
+            'subject5_grade' => 'required|numeric|min:0|max:10',
             'attendance_percentage' => 'required|numeric|min:0|max:100',
         ]);
 

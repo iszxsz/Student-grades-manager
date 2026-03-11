@@ -174,25 +174,25 @@ return (
               
               <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem', flexWrap: 'wrap'}}>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', justifyContent: 'flex-start'}}>
-                  <Typography variant="body1" sx={{ marginLeft: '8px', color: '#475569', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>Nota Matéria 1</Typography>
+                  <Typography variant="body1" sx={{ marginLeft: '8px', color: '#475569', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>Português</Typography>
                   <BasicTextFields type="number" variant="outlined" value={formData.subject1_grade} onChange={(e) => handleInputChange('subject1_grade', e.target.value)} error={!!errors.subject1_grade} helperText={errors.subject1_grade} min={0} max={10} />
                 </Box>
                 
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', justifyContent: 'flex-start'}}>
-                  <Typography variant="body1" sx={{ marginLeft: '8px', color: '#475569', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>Nota Matéria 2</Typography>
+                  <Typography variant="body1" sx={{ marginLeft: '8px', color: '#475569', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>Matemática</Typography>
                   <BasicTextFields type="number" variant="outlined" value={formData.subject2_grade} onChange={(e) => handleInputChange('subject2_grade', e.target.value)} error={!!errors.subject2_grade} helperText={errors.subject2_grade} min={0} max={10} />
                 </Box>
 
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', justifyContent: 'flex-start'}}>
-                  <Typography variant="body1" sx={{ marginLeft: '8px', color: '#475569', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>Nota Matéria 3</Typography>
+                  <Typography variant="body1" sx={{ marginLeft: '8px', color: '#475569', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>História</Typography>
                   <BasicTextFields type="number" variant="outlined" value={formData.subject3_grade} onChange={(e) => handleInputChange('subject3_grade', e.target.value)} error={!!errors.subject3_grade} helperText={errors.subject3_grade} min={0} max={10} />
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', justifyContent: 'flex-start'}}>
-                  <Typography variant="body1" sx={{ marginLeft: '8px', color: '#475569', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>Nota Matéria 4</Typography>
+                  <Typography variant="body1" sx={{ marginLeft: '8px', color: '#475569', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>Geografia</Typography>
                   <BasicTextFields type="number" variant="outlined" value={formData.subject4_grade} onChange={(e) => handleInputChange('subject4_grade', e.target.value)} error={!!errors.subject4_grade} helperText={errors.subject4_grade} min={0} max={10} />
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', justifyContent: 'flex-start'}}>
-                  <Typography variant="body1" sx={{ marginLeft: '8px', color: '#475569', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>Nota Matéria 5</Typography>
+                  <Typography variant="body1" sx={{ marginLeft: '8px', color: '#475569', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.5rem' }}>Ciências</Typography>
                   <BasicTextFields type="number" variant="outlined" value={formData.subject5_grade} onChange={(e) => handleInputChange('subject5_grade', e.target.value)} error={!!errors.subject5_grade} helperText={errors.subject5_grade} min={0} max={10} />
                 </Box>
               </Box>

@@ -27,7 +27,7 @@ export function Dashboard() {
 
     const formattedLowAttendanceStudents = dashboardData?.students_with_low_attendance?.map((student) => ({
       ...student,
-      attendance_percentage: `${student.attendance_percentage}%`,
+      attendance_percentage: `${student.attendance_percentage}`,
     }));
 
   if (error) {
@@ -36,16 +36,6 @@ export function Dashboard() {
         <Navbar />
         <SidebarMenu />
         <div style={{ padding: "20px", color: "red" }}>{error}</div>
-      </div>
-    );
-  }
-
-  if (!dashboardData) {
-    return (
-      <div>
-        <Navbar />
-        <SidebarMenu />
-        <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}><SimpleBackdrop /></div>
       </div>
     );
   }
@@ -65,6 +55,7 @@ export function Dashboard() {
 
 return (
   <div>
+    { !dashboardData && <SimpleBackdrop /> }
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <Navbar />
       <Box sx={{ display: 'flex', flex: 1, backgroundColor: '#f6f7f8' }}>
