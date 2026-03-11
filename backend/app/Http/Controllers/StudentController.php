@@ -7,12 +7,34 @@ use App\Models\Student;
 
 class StudentController extends Controller{
     public function index(){
-        
-        return response()->json(Student::all());
+        $students = Student::all()->map(function ($student) {
+        return [
+            'id' => $student->id,
+            'name' => $student->name,
+            'subject1_grade' => $student->subject1_grade,
+            'subject2_grade' => $student->subject2_grade,
+            'subject3_grade' => $student->subject3_grade,
+            'subject4_grade' => $student->subject4_grade,
+            'subject5_grade' => $student->subject5_grade,
+            'attendance_percentage' => $student->attendance_percentage,
+            'average_grade' => round($student->calculateAverageGrade(), 2),
+        ];
+    });
+        return response()->json($students);
     }
 
     public function store(Request $request){
-        $student = Student::create($request->all());
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'subject1_grade' => 'required|numeric|min:0|max:100',
+            'subject2_grade' => 'required|numeric|min:0|max:100',
+            'subject3_grade' => 'required|numeric|min:0|max:100',
+            'subject4_grade' => 'required|numeric|min:0|max:100',
+            'subject5_grade' => 'required|numeric|min:0|max:100',
+            'attendance_percentage' => 'required|numeric|min:0|max:100',
+        ]);
+
+        $student = Student::create($validated);
         return response()->json($student, 201);
     }
 
@@ -51,8 +73,17 @@ class StudentController extends Controller{
     }
 
     public function calculateStudentsWithLowAttendance(){
-        $students = Student::where('attendance_percentage', '<', 75)->get();
-        return $students;
+        return Student::where('attendance_percentage', '<', 75)
+            ->get()
+            ->map(function ($student) {
+                return [
+                    'id' => $student->id,
+                    'name' => $student->name,
+                    'attendance_percentage' => $student->attendance_percentage,
+                    'average_grade' => round($student->calculateAverageGrade(), 2),
+                ];
+            })
+            ->values();
     }
 
     public function getStudentsWithLowAttendance(){
@@ -61,11 +92,21 @@ class StudentController extends Controller{
     }
 
     public function calculateTopPerformingStudents(){
-       $classAverage = $this->calculateClassAverageGrade();
-        $students = Student::all();
-        return $students->filter(function($student) use ($classAverage){
-            return $student->calculateAverageGrade() > $classAverage;
-        })->values();
+        $classAverage = $this->calculateClassAverageGrade();
+
+        return Student::all()
+            ->filter(function ($student) use ($classAverage) {
+                return $student->calculateAverageGrade() > $classAverage;
+            })
+            ->map(function ($student) {
+                return [
+                    'id' => $student->id,
+                    'name' => $student->name,
+                    'average_grade' => round($student->calculateAverageGrade(), 2),
+                    'top_subject' => $student->getTopSubject(),
+                ];
+            })
+            ->values();
     }
 
     public function getTopPerformingStudents(){
