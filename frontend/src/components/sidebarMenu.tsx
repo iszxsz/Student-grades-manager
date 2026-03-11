@@ -1,3 +1,4 @@
+import React from "react";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
@@ -6,26 +7,80 @@ import { Link } from 'react-router-dom';
 
 export const SidebarMenu = () => {
   return (
-    <Box sx={{ width: 250, bgcolor: 'background.paper', height: '100%' }}>
-        <Typography variant="h6" component="div" sx={{ padding: 2, fontSize: 12, color: 'gray' }}>GESTÃO</Typography>
-        <MenuList>   
-        <MenuItem component={Link} to="/">
+    <Box sx={{ 
+      width: 250, 
+      bgcolor: '#ffffff', 
+      height: '100%',
+      borderRight: '1px solid #e2e8f0',
+    }}>
+        <Box sx={{ padding: '1.5rem' }}>
+          <Typography variant="body2" sx={{ 
+            fontSize: '0.75rem', 
+            fontWeight: 600,
+            color: '#64748b',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+          }}>
+            GESTÃO
+          </Typography>
+        </Box>
+        <MenuList sx={{ padding: '0 0.5rem' }}>   
+        <MenuItem component={Link} to="/" sx={{
+          borderRadius: '0.5rem',
+          marginBottom: '0.5rem',
+          '&:hover': {
+            backgroundColor: '#f1f5f9',
+          },
+        }}>
             <ListItemIcon>
-            <DashboardIcon sx={{ color: '#00162cff' }} />
+            <DashboardIcon sx={{ color: '#1a355b', fontSize: '1.5rem' }} />
             </ListItemIcon>
-            <ListItemText>Dashboard</ListItemText>
+            <ListItemText 
+              primary="Dashboard" 
+              primaryTypographyProps={{
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                color: '#475569',
+              }}
+            />
         </MenuItem>
-        <MenuItem component={Link} to="/alunos">
+        <MenuItem component={Link} to="/alunos" sx={{
+          borderRadius: '0.5rem',
+          marginBottom: '0.5rem',
+          '&:hover': {
+            backgroundColor: '#f1f5f9',
+          },
+        }}>
             <ListItemIcon>
-            <GroupsIcon sx={{ color: '#00162cff' }} />
+            <GroupsIcon sx={{ color: '#1a355b', fontSize: '1.5rem' }} />
             </ListItemIcon>
-            <ListItemText>Alunos</ListItemText>
+            <ListItemText 
+              primary="Alunos" 
+              primaryTypographyProps={{
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                color: '#475569',
+              }}
+            />
         </MenuItem>
-        <MenuItem component={Link} to="/novoAluno">
+        <MenuItem component={Link} to="/novoAluno" sx={{
+          borderRadius: '0.5rem',
+          marginBottom: '0.5rem',
+          '&:hover': {
+            backgroundColor: '#f1f5f9',
+          },
+        }}>
             <ListItemIcon>
-            <PersonSearchIcon sx={{ color: '#00162cff' }} />
+            <PersonSearchIcon sx={{ color: '#1a355b', fontSize: '1.5rem' }} />
             </ListItemIcon>
-            <ListItemText>Adicionar Novo Aluno</ListItemText>
+            <ListItemText 
+              primary="Adicionar Novo Aluno" 
+              primaryTypographyProps={{
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                color: '#475569',
+              }}
+            />
         </MenuItem>
         </MenuList>
     </Box>

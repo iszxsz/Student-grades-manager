@@ -67,33 +67,44 @@ return (
   <div>
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <Navbar />
-      <Box sx={{ display: 'flex', flex: 1, backgroundColor: '#e2e2e2ff' }}>
-        <Box sx={{ width: 240, backgroundColor: '#fff' }}>
+      <Box sx={{ display: 'flex', flex: 1, backgroundColor: '#f6f7f8' }}>
+        <Box sx={{ backgroundColor: '#fff' }}>
           <SidebarMenu />
         </Box>
-        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'start', alignItems: 'flex-start', padding: '20px', flexDirection: 'column', margin: '2% 10%' }}>
-          <Typography variant="h5" sx={{ marginBottom: '0px', fontFamily: 'Arial, sans-serif' }}>Visão Geral</Typography>
-          <Typography variant="h6" sx={{ marginBottom: '8px', fontFamily: 'Arial, sans-serif', color: '#525252ff', fontSize: '12px' }}>Informações gerais sobre a turma</Typography>
+        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'start', alignItems: 'flex-start', padding: '2rem', flexDirection: 'column' }}>
+          <Box sx={{ marginBottom: '1rem' }}>
+            <Typography variant="h1" sx={{ marginBottom: '0.5rem', letterSpacing: '-0.025em', color: '#0f172a' }}>
+              Visão Geral
+            </Typography>
+            <Typography sx={{ color: '#64748b', fontSize: '1rem' }}>
+              Informações importantes sobre a turma.
+            </Typography>
+          </Box>
+
           <ButtonContained onClick={() => window.location.href = "/novoAluno" } value="Adicionar Estudante" />
 
-          <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '16px', width: '100%', justifyContent: 'center', alignItems: 'center'   }}>
+          <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '1.5rem', width: '100%', justifyContent: 'center', alignItems: 'stretch', marginBottom: '2.5rem' }}>
             <Card title="Média Geral da Turma" value={dashboardData?.class_average_grade ? dashboardData.class_average_grade.toFixed(2) : "-"} />
             <Card title="Estudantes com Baixa Frequência" value={dashboardData?.students_with_low_attendance?.length > 0 ? dashboardData.students_with_low_attendance.length : "-"} />
             <Card title="Estudantes Acima da Média" value={dashboardData?.top_performing_students?.length > 0 ? dashboardData.top_performing_students.length : "-"} />
           </Box>
 
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '40px', justifyContent: 'center', gap: '8px' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: '40px', justifyContent: 'center', gap: '8px' }}>
-              <StarIcon />
-              <Typography variant="h5" sx={{fontFamily: 'Arial, sans-serif' }}>Destaques Acadêmicos (Média {">"} {dashboardData?.class_average_grade ? dashboardData.class_average_grade.toFixed(2) : "-"})</Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start', marginBottom: '3rem', width: '100%' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '1rem', gap: '0.5rem' }}>
+              <StarIcon sx={{ color: '#1a355b' }} />
+              <Typography variant="h3" sx={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>
+                Destaques Acadêmicos (Média {">"} {dashboardData?.class_average_grade ? dashboardData.class_average_grade.toFixed(2) : "-"})
+              </Typography>
             </Box>
             <Table columns={columnsTableTopStudents} rows={dashboardData?.top_performing_students || []} emptyMessage="Nenhum estudante cadastrado"/>
           </Box>
 
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start', marginTop: '40px', justifyContent: 'center', gap: '8px' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: '40px', justifyContent: 'center', gap: '8px' }}>
-              <ReportProblemIcon />
-              <Typography variant="h5" sx={{fontFamily: 'Arial, sans-serif' }}>Alunos com Baixa Frequência (Frequência {"<"} 75%)</Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start', width: '100%' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '1rem', gap: '0.5rem' }}>
+              <ReportProblemIcon sx={{ color: '#dc2626' }} />
+              <Typography variant="h3" sx={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>
+                Alunos com Baixa Frequência (Frequência {"<"} 75%)
+              </Typography>
             </Box>
             <Table columns={lowAttendanceStudents} rows={formattedLowAttendanceStudents || []} emptyMessage="Nenhum estudante cadastrado"/>
           </Box>

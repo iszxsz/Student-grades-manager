@@ -7,6 +7,20 @@ interface ButtonContainedProps {
 
 export const ButtonContained = ({ value, onClick }: ButtonContainedProps) => {
   return (
-    <Button variant="contained" onClick={onClick} sx={{backgroundColor: '#00162cff', margin:'20px 0px' }}>{value}</Button>
+    <Button 
+      variant="contained" 
+      onClick={onClick} 
+      sx={{
+        backgroundColor: '#1a355b',
+        margin: '20px 0px',
+        boxShadow: 'none',
+        '&:hover': {
+          backgroundColor: '#142a47',
+          boxShadow: 'none'
+        }
+      }}
+    >
+      {value}
+    </Button>
   );
 };
